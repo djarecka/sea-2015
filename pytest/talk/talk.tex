@@ -18,7 +18,7 @@
 % listings                                                                              
 \usepackage{fancyvrb,relsize}
 %\fvset{frame=single,framerule=.2mm,fontsize=\relscale{1.2}}
-\fvset{fontsize=\relscale{1.}}
+\fvset{fontsize=\relscale{.8}}
 \input{lst/pygments}
 
 \newcommand*\FancyVerbStartString{}
@@ -116,7 +116,7 @@
   \begin{frame}[fragile]
       \ftitle{unit tests and assert statement}
    \uncover<1>{A simple example - testing division by two}
-   \only<1-5,8>{ \codepyt{lst/test_asserts}{1}{0}}
+   \only<1-6,8>{ \codepyt{lst/test_asserts}{1}{0}}
      \only<2,3,4,5,6,8>{ \begin{itemize}
    \item{\only<2-3>{the simplest assert statement\\
             \codepyt{lst/test_asserts}{2}{0}}
@@ -146,9 +146,17 @@
      \item{helpful traceback and failing assertion reporting}
          \vspace{1em}
      \item{automatic test discovery}
+           \vspace{1em}
+     \uncover<2->{\item{basic invocation}
+       \begin{itemize}
+            \vspace{.5em}
+          \item{\textcolor{blue}{\it {\$ py.test}}}
+            \vspace{.5em}
+          \item{\textcolor{blue}{\it {\$ python -m pytest}}}
+        \end{itemize}}
     \end{itemize}
-   \vspace{2.em}
-        \uncover<2->{\alert{ \url{http://pytest.org/latest/index.html}}}
+   \vspace{1.em}
+        \uncover<3->{\alert{ \url{http://pytest.org/latest/index.html}}}
   \end{frame}
 
  \section{py.test - examples}
@@ -166,11 +174,81 @@
    \uncover<3->{\item{testing output}
    \codepyt{lst/test_asserts_temp}{3}{0}}
  \end{itemize}
+\end{frame}
 
+ \begin{frame}[fragile]
+   \ftitle{parametrization of arguments}
+   \uncover<1->{\codepyt{lst/test_asserts_temp}{3}{0}}
+   \vspace{2.em}
+   \uncover<2->{using pytest.mark.parametrize
+     \codepyt{lst/test_parametrizing}{1}{0}}
+   \uncover<3>{pokazac output??}
+\end{frame}
+
+ \begin{frame}[fragile]
+   \ftitle{dealing with tests that can not succeeds}
+   \only<1>{\codepyt{lst/test_xfail_xskip}{1}{0}}
+   \only<2>{\codepyt{lst/test_xfail_xskip}{2}{0}}
+   \vspace{1.em}
+   \only<1-2>{using pytest.mark.skipif
+     \codepyt{lst/test_xfail_xskip}{3}{0}}
+   \vspace{1.em}
+   \only<1>{\alert{$\leadsto$ test will be skipped}}
+   \only<2>{\alert{$\leadsto$ test will be run}}
+   \only<3->{
+      \begin{itemize}
+        \item{skipping test}
+          \codepyt{lst/test_xfail_xskip}{4}{0}
+          \vspace{2.em}
+        \only<4->{\item{expecting tests to fail}
+%TODO - cos zle z ponizszym listingiem
+          \codepyt{lst/test_xfail_xskip}{5}{0}}
+        \only<5->{
+        \begin{itemize}
+          \item{forcing to run xfail tests\\}
+         \textcolor{blue}{\it {\$ pytest --runxfail}}
+        \end{itemize}}
+      \end{itemize}
+     }
+\end{frame}
+
+
+\section{py.test - options and...}
+
+ \begin{frame}[fragile]
+   \ftitle{pytest options}
+   \begin{itemize}
+     \uncover<1->{\item{additional information\\}
+       \textcolor{blue}{\it {\$ py.test --version}} - shows where pytest was 
+       imported from\\
+       \textcolor{blue}{\it {\$ py.test -h | --help}} - show help on command line
+       }
+     \uncover<2->{\item{stopping after failures\\}
+       \textcolor{blue}{\it {\$ py.test -x}} - stops after first failure\\
+       \textcolor{blue}{\it {\$ py.test --maxfail=2}} - stops after two failures}
+     \uncover<3->{\item{using PDB (Python Debugger)\\}
+       \textcolor{blue}{\it {\$ py.test --pdb}} - invokes PDB on every failure\\
+       \textcolor{blue}{\it {\$ py.test -x --pdb}} - drops to PDB on first failure
+       and stops}
+     \uncover<4->{\item{additional information about skips and xfails\\}
+       \textcolor{blue}{\it {\$ py.test -rxs}} - shows extra info on skips and xfails}
+     \uncover<5->{\item{profiling test execution duration\\}
+       \textcolor{blue}{\it {\$ py.test --durations=10}} - returns a list of the 
+       slowest tests} 
+   \end{itemize}
 
 \end{frame}
 
-\section{py.test - options and...}
+\begin{frame}[fragile]
+   \ftitle{pytest layouts}
+TODO
+   \begin{itemize}
+     \uncover<1->{\item{TODO}
+       }
+   \end{itemize}
+
+\end{frame}
+
 
 \section{py.test - more advanced features}
 
